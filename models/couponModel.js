@@ -1,3 +1,5 @@
+import mongoose, { Schema } from "mongoose";
+
 const couponSchema = new Schema({
   code: { type: String, required: true, unique: true },
   discountPercentage: { type: Number, required: true },
@@ -5,4 +7,5 @@ const couponSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model("Coupon", couponSchema);
+const Coupon = mongoose.models.Coupon || mongoose.model("Coupon", couponSchema);
+export default Coupon;

@@ -1,3 +1,4 @@
+import mongoose, { Schema } from "mongoose";
 const paymentSchema = new Schema({
   orderId: { type: Schema.Types.ObjectId, ref: "Order" },
   paymentMethod: { type: String, required: true },
@@ -11,3 +12,8 @@ const paymentSchema = new Schema({
 });
 
 module.exports = mongoose.model("Payment", paymentSchema);
+
+const Product =
+  mongoose.models.Payment || mongoose.model("Payment", paymentSchema);
+
+export default Payment;

@@ -1,3 +1,4 @@
+import mongoose, { Schema } from "mongoose";
 const orderSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: "User" },
   products: [
@@ -30,4 +31,6 @@ const orderSchema = new Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model("Order", orderSchema);
+const Order = mongoose.models.Order || mongoose.model("Order", orderSchema);
+
+export default Order;
