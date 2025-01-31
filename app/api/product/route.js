@@ -60,41 +60,18 @@ export async function GET(req) {
     const page = url.searchParams.get("page");
     const limit = url.searchParams.get("limit");
 
-    // Log the searchParams to check if they are being received correctly
-    console.log("Query Parameters:", url.searchParams);
-
-    // Check the type of page and limit before parsing
-    console.log("Type of page:", typeof page);
-    console.log("Type of limit:", typeof limit);
-
-    // Trim any extra spaces and use Number() for stricter conversion
-    const pageNum = Number(page?.trim()) || 1; // Default to 1 if invalid
-    const limitNum = Number(limit?.trim()) || 10; // Default to 10 if invalid
-
-    // Log the parsed page and limit
-    console.log("Parsed page:", pageNum);
-    console.log("Parsed limit:", limitNum);
-    // Validate that page and limit are positive integers
-    if (pageNum <= 0 || limitNum <= 0) {
-      return NextResponse.json(
-        { message: "Page and limit must be positive integers" },
-        { status: 400 }
-      );
-    }
+    const pageNum = Number(page?.trim()) || 1;
+    const limitNum = Number(limit?.trim()) || 10;
 
     const articles = await Product.aggregate([
       {
         $facet: {
-          metadata: [{ $count: "totalCount" }], // Get total count
-          data: [
-            { $skip: (pageNum - 1) * limitNum }, // Skip based on page number
-            { $limit: limitNum }, // Limit the number of products
-          ],
+          metadata: [{ $count: "totalCount" }],
+          data: [{ $skip: (pageNum - 1) * limitNum }, { $limit: limitNum }],
         },
       },
     ]);
 
-    // Calculate the total number of pages
     const totalProducts = articles[0].metadata[0]
       ? articles[0].metadata[0].totalCount
       : 0;

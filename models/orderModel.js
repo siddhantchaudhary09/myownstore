@@ -5,22 +5,19 @@ const orderSchema = new Schema({
     {
       product: { type: Schema.Types.ObjectId, ref: "Product" },
       quantity: { type: Number, required: true },
-      size: { type: String },
-      price: { type: Number, required: true },
     },
   ],
   totalAmount: { type: Number, required: true },
+  discountedAmount: { type: Number, default: 0 },
+
   status: {
     type: String,
     enum: ["Pending", "Shipped", "Delivered", "Cancelled"],
     default: "Pending",
   },
   shippingAddress: {
-    street: String,
-    city: String,
-    state: String,
-    postalCode: String,
-    country: String,
+    type: Schema.Types.ObjectId,
+    ref: "Address",
   },
   paymentStatus: {
     type: String,
