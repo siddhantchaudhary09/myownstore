@@ -5,12 +5,10 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
-    const { street, city, state, postalCode, country, user_Id } =
+    const { street, city, state, postalCode, country, user_Id, phone } =
       await req.json();
 
-    console.log(street, city, state, postalCode, country, user_Id);
-
-    if (!street || !city || !state || !postalCode || !country) {
+    if (!street || !city || !state || !postalCode || !country || !phone) {
       return NextResponse.json(
         { message: "All fields are required" },
         { status: 400 }
@@ -25,6 +23,7 @@ export async function POST(req) {
       state,
       postalCode,
       country,
+      phone,
     });
 
     const user = await User.findByIdAndUpdate(user_Id, {
@@ -39,7 +38,7 @@ export async function POST(req) {
   } catch (error) {
     console.error("Error creating address:", error);
     return NextResponse.json(
-      { message: "Internal Server Error" },
+      { message: "Internal Server Error " },
       { status: 500 }
     );
   }

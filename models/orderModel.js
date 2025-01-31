@@ -13,7 +13,6 @@ const orderSchema = new Schema({
   status: {
     type: String,
     enum: ["Pending", "Shipped", "Delivered", "Cancelled"],
-    default: "Pending",
   },
   shippingAddress: {
     type: Schema.Types.ObjectId,

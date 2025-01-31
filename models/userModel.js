@@ -20,12 +20,7 @@ const userSchema = new Schema({
       size: { type: String },
     },
   ],
-  appliedCoupons: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Coupon",
-    },
-  ],
+
   createdAt: { type: Date, default: Date.now },
 });
 

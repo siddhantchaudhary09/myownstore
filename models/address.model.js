@@ -7,6 +7,7 @@ const addressSchema = new Schema({
   state: String,
   postalCode: String,
   country: String,
+  phone: String,
 
   createdAt: { type: Date, default: Date.now },
 });

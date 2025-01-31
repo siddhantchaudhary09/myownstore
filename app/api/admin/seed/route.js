@@ -16,10 +16,10 @@ export async function GET() {
       );
     }
 
-    const products = Array.from({ length: 200 }, () => ({
+    const products = Array.from({ length: 7 }, () => ({
       name: faker.commerce.productName(),
       description: faker.commerce.productDescription(),
-      category: categories[Math.floor(Math.random() * categories.length)]._id,
+      category: categories[Math.floor(Math.random() * 4)]._id,
       price: faker.commerce.price({ min: 10, max: 500 }),
       stock: faker.number.int({ min: 1, max: 100 }),
       images: [
