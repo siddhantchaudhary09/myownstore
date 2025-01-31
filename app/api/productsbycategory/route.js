@@ -16,7 +16,7 @@ export async function GET(req) {
   await dbConnect();
 
   try {
-    const category = await Category.findById(categoryId);
+    const category = await Category.findById(categoryId).populate("products");
 
     if (!category) {
       return NextResponse.json(
